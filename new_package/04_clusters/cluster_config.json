@@ -1,0 +1,9 @@
+{
+  "source": "03_features/game_features.csv",
+  "method": "l2 + PCA + MiniBatchKMeans",
+  "k": 18,
+  "silhouette": 0.1091,
+  "n_clustered": 6750,
+  "n_unclustered": 680,
+  "pca_components": 54
+}

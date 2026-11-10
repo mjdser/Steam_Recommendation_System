@@ -1,0 +1,17 @@
+{
+  "description": "A relaxing co-op farming simulator. You grow crops, craft tools, and explore a colorful countryside with friends. No combat or shooting.",
+  "model": "gemini-3.8-flash",
+  "note": "Interpreted request as a peaceful cooperative farming and exploration game. Combat and shooting were explicitly excluded, ruling out combat-oriented action and shooters.",
+  "excluded": ["Shooter", "FPS", "Action", "PvE", "PvP"],
+  "active": [
+    {"label": "Simulation", "score": 0.9},
+    {"label": "Exploration", "score": 0.7},
+    {"label": "Crafting", "score": 0.7},
+    {"label": "Farming Sim", "score": 1.0},
+    {"label": "Nature", "score": 0.5},
+    {"label": "Relaxing", "score": 0.9},
+    {"label": "Colorful", "score": 0.7},
+    {"label": "Multiplayer", "score": 0.9},
+    {"label": "Co-op", "score": 0.9}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "rows": 7430,
+  "top2500_only": 528,
+  "force_only": 4930,
+  "both": 1972,
+  "has_description": 6950,
+  "missing_description": 480,
+  "desc_from_2026": 6165,
+  "desc_from_2025": 76,
+  "desc_from_steam": 527,
+  "desc_from_sibling": 34,
+  "desc_none": 480,
+  "files": {
+    "csv": "01_catalog/games_for_features.csv"
+  },
+  "desc_found_store": 148,
+  "refill_version": "v3"
+}

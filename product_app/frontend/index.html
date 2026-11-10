@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#10131c">
+    <meta name="description" content="Find your next Steam game from a description, your play history, or a game cluster selected for a new account.">
+    <title>NextQuest — three ways to find your next game</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="NextQuest, back to top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" focusable="false">
+              <path d="M20 2.5 23.5 14 35 17.5 23.5 21 20 32.5 16.5 21 5 17.5 16.5 14 20 2.5Z" fill="currentColor"/>
+              <circle cx="31.5" cy="30.5" r="4.5" fill="currentColor"/>
+            </svg>
+          </span>
+          <span>nextquest<span class="brand-period">.</span></span>
+        </a>
+
+        <nav class="header-nav" aria-label="Main navigation">
+          <a href="#describe">Describe</a>
+          <a href="#steam">Steam</a>
+          <a href="#clusters">Clusters</a>
+        </nav>
+
+        <div class="system-status" id="system-status" role="status" aria-live="polite">
+          <span class="status-light" aria-hidden="true"></span>
+          <span id="system-status-text">Checking catalog</span>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="hero section-wrap" id="top" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> THREE WAYS TO FIND YOUR NEXT GAME</div>
+            <h1 id="hero-title">The game you want is <em>out there.</em></h1>
+            <p class="hero-subtitle">Describe what you want, use your Steam play history, or choose a game cluster when your library is still empty.</p>
+
+            <nav class="path-links" aria-label="Choose a recommendation path">
+              <a class="path-link" href="#describe"><span>01</span> Describe a game</a>
+              <a class="path-link" href="#steam"><span>02</span> Use Steam history</a>
+              <a class="path-link" href="#clusters"><span>03</span> Start with a cluster</a>
+            </nav>
+
+            <form id="search-form" class="search-panel" novalidate aria-label="Recommend from a description">
+              <div class="search-panel-top">
+                <label for="game-query" id="describe">Describe your next game</label>
+                <span class="search-index" aria-hidden="true">01 / DESCRIBE</span>
+              </div>
+              <textarea id="game-query" name="query" rows="4" minlength="3" maxlength="2000" placeholder="A story-rich co-op adventure where two players solve problems together…" aria-describedby="search-help search-availability" required></textarea>
+              <div class="example-row" aria-label="Example descriptions">
+                <span>Try an idea</span>
+                <button type="button" class="example-chip" data-example="story">Story &amp; co-op <span aria-hidden="true">↗</span></button>
+                <button type="button" class="example-chip" data-example="cozy">Cozy escape <span aria-hidden="true">↗</span></button>
+                <button type="button" class="example-chip" data-example="racing">Racing night <span aria-hidden="true">↗</span></button>
+              </div>
+              <div class="search-actions">
+                <div class="search-meta">
+                  <label for="result-limit">Show</label>
+                  <select id="result-limit" name="limit" aria-label="Number of recommendations">
+                    <option value="5" selected>5 games</option>
+                    <option value="10">10 games</option>
+                    <option value="20">20 games</option>
+                  </select>
+                  <span class="character-count" id="character-count">0 / 2,000</span>
+                </div>
+                <button class="primary-button" id="search-button" type="submit" disabled>
+                  <span id="search-button-text">Checking live search…</span>
+                  <span class="button-arrow" aria-hidden="true">↗</span>
+                </button>
+              </div>
+              <p class="search-help" id="search-help">Be specific about play style, world, story, or features. Press Ctrl/⌘ + Enter to search.</p>
+              <p class="search-availability" id="search-availability" hidden></p>
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+            </form>
+            <a class="browse-link" href="#steam">Already play on Steam? Use your history <span aria-hidden="true">↓</span></a>
+          </div>
+
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-outer"></div>
+            <div class="orbit orbit-inner"></div>
+            <div class="orbit-core"><span>YOUR NEXT<br>FAVORITE<br>GAME</span><svg viewBox="0 0 64 64" fill="none"><path d="m32 3 7.3 21.7L61 32l-21.7 7.3L32 61l-7.3-21.7L3 32l21.7-7.3L32 3Z" fill="currentColor"/></svg></div>
+            <div class="floating-trait trait-one"><span class="trait-icon">✳</span> Story rich</div>
+            <div class="floating-trait trait-two"><span class="trait-icon">✳</span> Multiplayer</div>
+            <div class="floating-trait trait-three"><span class="trait-icon">✳</span> Your kind of game</div>
+            <div class="hero-art-caption">93 GAME TRAITS <span>✦</span> THOUSANDS OF POSSIBILITIES</div>
+          </div>
+        </section>
+
+        <section class="steam-section" id="steam" aria-labelledby="steam-title">
+          <div class="section-wrap steam-inner">
+            <div class="steam-intro">
+              <p class="section-kicker">02 / YOUR PLAY HISTORY</p>
+              <h2 id="steam-title">Your library knows your taste.</h2>
+              <p>Your library picks the nearest 3 clusters (150 + 100 + 50 games), then v3 ranks those 300. Enter the 17-digit SteamID64 for an account with a public game library.</p>
+              <a href="#clusters" class="text-link">New account or empty library? Explore clusters ↗</a>
+            </div>
+            <form id="steam-form" class="steam-panel" novalidate autocomplete="off" aria-label="Recommend from Steam history">
+              <div class="search-panel-top"><strong>Find games from my library</strong><span class="search-index" aria-hidden="true">STEAM / MODEL</span></div>
+              <p class="steam-availability" id="steam-availability" role="status" hidden></p>
+              <label for="steam-id">SteamID64</label>
+              <input id="steam-id" name="steamid" type="text" inputmode="numeric" pattern="[0-9]{17}" maxlength="17" placeholder="7656119…" autocomplete="off" aria-describedby="steam-id-help" required>
+              <p class="field-help" id="steam-id-help">The 17-digit ID of the Steam account whose public game library you want to use.</p>
+              <div class="steam-actions">
+                <label for="steam-limit">Show
+                  <select id="steam-limit" name="limit" aria-label="Number of Steam history recommendations"><option value="5" selected>5 games</option><option value="10">10 games</option><option value="20">20 games</option></select>
+                </label>
+                <button class="primary-button" id="steam-button" type="submit"><span id="steam-button-text">Use my history</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              </div>
+              <p class="form-error" id="steam-error" role="alert" hidden></p>
+            </form>
+          </div>
+        </section>
+
+        <section class="discovery-section" id="clusters" aria-labelledby="clusters-title">
+          <div class="section-wrap discovery-inner">
+            <div class="section-heading discovery-heading">
+              <div>
+                <p class="section-kicker">03 / NO HISTORY NEEDED</p>
+                <h2 id="clusters-title">Start with a world.</h2>
+                <p>New to Steam? Choose from the actual game clusters in our catalog. Each cluster is ranked from saved review and player activity data.</p>
+              </div>
+              <div class="section-heading-aside"><span class="small-star" aria-hidden="true">✳</span> BUILT FOR A NEW LIBRARY</div>
+            </div>
+            <div class="cluster-controls">
+              <label class="cluster-search-label" for="cluster-search">Find a cluster
+                <input id="cluster-search" type="search" placeholder="Try puzzle, strategy, racing…" autocomplete="off">
+              </label>
+              <label for="cluster-budget">Budget
+                <select id="cluster-budget"><option value="all">Any price</option><option value="0">Free</option><option value="20">Up to 20</option><option value="80">Up to 80</option></select>
+              </label>
+              <label for="cluster-hardware">PC hardware
+                <select id="cluster-hardware"><option value="all">Any PC</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select>
+              </label>
+            </div>
+            <p class="cluster-filter-help">Budget uses the catalog's price units. Hardware filters are cumulative: medium also includes low, and high includes medium and low.</p>
+            <p class="cluster-count" id="cluster-count" role="status" aria-live="polite">Loading clusters…</p>
+            <div id="cluster-grid" class="cluster-grid" aria-label="Game clusters"></div>
+            <p class="form-error" id="cluster-error" role="alert" hidden></p>
+          </div>
+        </section>
+
+        <section class="results-section" id="results" aria-labelledby="results-title">
+          <div class="section-wrap results-inner">
+            <div class="section-heading results-heading">
+              <div>
+                <p class="section-kicker" id="results-kicker">FROM THE CATALOG</p>
+                <h2 id="results-title" tabindex="-1">A new place to play.</h2>
+                <p id="results-intro">Choose a path above to see recommendations.</p>
+              </div>
+              <button type="button" class="text-button" id="refine-button">Explore another cluster <span aria-hidden="true">↗</span></button>
+            </div>
+
+            <p class="screen-reader-only" id="results-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+            <div class="results-content" id="results-content" aria-busy="true">
+              <div class="loading-state" id="loading-state" role="status" aria-live="polite">
+                <div class="loading-orbit" aria-hidden="true"><span>✦</span></div>
+                <h3>Exploring the catalog</h3>
+                <p>Matching game traits to find something worth your time.</p>
+              </div>
+            </div>
+            <p class="results-footnote" id="results-footnote">Scores order games within a path and cannot be compared across paths. Check each Steam page for game and platform details.</p>
+          </div>
+        </section>
+
+        <section class="how-section" id="how-it-works" aria-labelledby="how-title">
+          <div class="section-wrap how-inner">
+            <div class="how-lead">
+              <p class="section-kicker">THE IDEA BEHIND NEXTQUEST</p>
+              <h2 id="how-title">A little less scrolling.<br><em>A lot more playing.</em></h2>
+              <p>One catalog, three routes: your words, your played games, or a cluster selected before you have a library.</p>
+            </div>
+            <ol class="how-steps">
+              <li><span class="how-number">01 /</span><div><h3>Describe a game</h3><p>Gemini maps your words into the 93 traits scored across the catalog.</p></div></li>
+              <li><span class="how-number">02 /</span><div><h3>Use Steam history</h3><p>Clusters pick 300 nearby games, then v3 ranks the best ones from your library.</p></div></li>
+              <li><span class="how-number">03 /</span><div><h3>Choose a cluster</h3><p>With no library yet, browse the catalog's real clusters and their ranked games.</p></div></li>
+            </ol>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer section-wrap">
+        <div class="footer-brand"><span class="footer-star" aria-hidden="true">✦</span> nextquest<span class="brand-period">.</span></div>
+        <p>Find a better reason to press play.</p>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </div>
+    <noscript><div class="noscript-banner">Enable JavaScript to explore real game recommendations.</div></noscript>
+  </body>
+</html>

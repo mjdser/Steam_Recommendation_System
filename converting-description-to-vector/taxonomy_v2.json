@@ -1,0 +1,1889 @@
+{
+  "taxonomy_version": "taxonomy_v2",
+  "model_config_version": "bge_hybrid_v1",
+  "score_semantics": {
+    "range": [
+      0.0,
+      1.0
+    ],
+    "meaning": "Strength of textual evidence that the cleaned game description supports the label. Not calibrated probabilities, not game quality, and not Steam tag vote shares. Multiple labels may score highly; scores need not sum to 1.",
+    "method": "Hybrid of (1) sentence-embedding cosine similarity between the description and fixed label definitions, retaining embedding mass only for the top-k genres and top-k tags per game (similarity-derived, not probabilities), and (2) keyword/regex evidence with simple negation handling. Outputs are hybrid textual-evidence scores in [0,1].",
+    "score_type": "hybrid_embedding_similarity_and_keyword_evidence"
+  },
+  "exclusions": {
+    "storefront_metadata": [
+      "Early Access",
+      "Free to Play"
+    ],
+    "production_metadata": [
+      "Indie"
+    ],
+    "content_metadata": [
+      "Violent",
+      "Gore",
+      "Nudity",
+      "Sexual Content",
+      "NSFW"
+    ],
+    "non_game_genres": [
+      "Education",
+      "Game Development",
+      "Design & Illustration",
+      "Software Training",
+      "Utilities",
+      "Animation & Modeling",
+      "Accounting",
+      "Web Publishing",
+      "Video Production",
+      "Photo Editing",
+      "Movie",
+      "Audio Production"
+    ],
+    "notes": "These labels may still be copied from catalog metadata into separate metadata fields, but they are not dimensions of the semantic genre/tag vectors."
+  },
+  "genres": {
+    "dimension_order": [
+      "Action",
+      "Adventure",
+      "Casual",
+      "Simulation",
+      "Strategy",
+      "RPG",
+      "Sports",
+      "Racing",
+      "Massively Multiplayer"
+    ],
+    "count": 9,
+    "labels": [
+      {
+        "id": "Action",
+        "definition": "Fast-paced action gameplay with real-time combat, shooting, brawling, athletic challenge, or competitive shooters.",
+        "aliases": [
+          "Action"
+        ],
+        "keywords": [
+          "\\baction[- ]packed\\b",
+          "\\baction\\s+game\\b",
+          "\\bfast[- ]paced\\s+action\\b",
+          "\\breal[- ]time\\s+combat\\b",
+          "\\bintense\\s+combat\\b",
+          "\\bhack\\s*and\\s*slash\\b",
+          "\\bshooter\\b",
+          "\\btactical\\s+(?:shooter|action)\\b",
+          "\\bcompetitive\\s+(?:fps|shooter|action|experience)\\b",
+          "\\belite\\s+competitive\\b",
+          "\\bgun(?:play|fight)\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:an?\\s+)?action\\b",
+          "\\bno\\s+combat\\b"
+        ]
+      },
+      {
+        "id": "Adventure",
+        "definition": "Adventure gameplay focused on exploration, story journeys, investigation, or point-and-click adventure.",
+        "aliases": [
+          "Adventure",
+          "Action-Adventure"
+        ],
+        "keywords": [
+          "\\badventure\\s+game\\b",
+          "\\bepic\\s+adventure\\b",
+          "\\bexplor(?:e|ation)\\b",
+          "\\bpoint\\s*(?:&|and)\\s*click\\s+adventure\\b",
+          "\\bstory[- ]driven\\s+adventure\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:an?\\s+)?adventure\\b"
+        ]
+      },
+      {
+        "id": "Casual",
+        "definition": "Casual, accessible, pick-up-and-play gameplay with light challenge or short sessions.",
+        "aliases": [
+          "Casual"
+        ],
+        "keywords": [
+          "\\bcasual\\s+game\\b",
+          "\\brelaxing\\s+gameplay\\b",
+          "\\beasy\\s+to\\s+(?:learn|pick\\s*up)\\b",
+          "\\bfamily[- ]friendly\\b",
+          "\\bpick[- ]up[- ]and[- ]play\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+casual\\b",
+          "\\bhardcore\\b"
+        ]
+      },
+      {
+        "id": "Simulation",
+        "definition": "Simulation of systems, vehicles, life, jobs, farming, cities, or realistic processes.",
+        "aliases": [
+          "Simulation"
+        ],
+        "keywords": [
+          "\\bsim(?:ulator|ulation)?\\b",
+          "\\bmanage(?:ment)?\\b",
+          "\\bfarm(?:ing)?\\b",
+          "\\bcity\\s+build",
+          "\\blife\\s+sim\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?sim"
+        ]
+      },
+      {
+        "id": "Strategy",
+        "definition": "Strategic planning, tactics, resource decisions, wargames, or turn-based/real-time strategy.",
+        "aliases": [
+          "Strategy"
+        ],
+        "keywords": [
+          "\\bstrateg(?:y|ic)\\b",
+          "\\btactic(?:al|s)?\\b",
+          "\\bRTS\\b",
+          "\\b4X\\b",
+          "\\bwargame\\b",
+          "\\bturn[- ]based\\s+strateg"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?strateg"
+        ]
+      },
+      {
+        "id": "RPG",
+        "definition": "Role-playing with character progression, classes, quests, party building, or stats-driven builds.",
+        "aliases": [
+          "RPG",
+          "Action RPG",
+          "JRPG",
+          "CRPG",
+          "Strategy RPG",
+          "Tactical RPG"
+        ],
+        "keywords": [
+          "\\bRPG\\b",
+          "\\brole[- ]play",
+          "\\blevel\\s*up\\b",
+          "\\bcharacter\\s+progression\\b",
+          "\\bquest(?:s|ing)?\\b",
+          "\\bparty[- ]based\\b",
+          "\\bJRPG\\b",
+          "\\bCRPG\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:an?\\s+)?RPG\\b",
+          "\\bno\\s+(?:XP|experience|leveling)\\b"
+        ]
+      },
+      {
+        "id": "Sports",
+        "definition": "Sports competition such as football, basketball, racing athletics, or sports management.",
+        "aliases": [
+          "Sports"
+        ],
+        "keywords": [
+          "\\bsports?\\b",
+          "\\bfootball\\b",
+          "\\bsoccer\\b",
+          "\\bbasketball\\b",
+          "\\bbaseball\\b",
+          "\\bhockey\\b",
+          "\\btennis\\b",
+          "\\bgolf\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?sports?\\b"
+        ]
+      },
+      {
+        "id": "Racing",
+        "definition": "Racing or driving competition with vehicles on tracks, streets, or courses.",
+        "aliases": [
+          "Racing",
+          "Automobile Sim",
+          "Combat Racing"
+        ],
+        "keywords": [
+          "\\brac(?:e|ing|er)\\b",
+          "\\bdriv(?:e|ing)\\b",
+          "\\bcircuit\\b",
+          "\\blap(?:s)?\\b",
+          "\\bmotorsport\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?rac"
+        ]
+      },
+      {
+        "id": "Massively Multiplayer",
+        "definition": "Massively multiplayer online worlds or persistent shared multiplayer communities.",
+        "aliases": [
+          "Massively Multiplayer",
+          "MMORPG",
+          "MMO"
+        ],
+        "keywords": [
+          "\\bMMO(?:RPG)?\\b",
+          "\\bmassively\\s+multiplayer\\b",
+          "\\bpersistent\\s+(?:online\\s+)?world\\b"
+        ],
+        "negations": [
+          "\\bno\\s+MMO\\b",
+          "\\bnot\\s+massively\\b"
+        ]
+      }
+    ]
+  },
+  "tags": {
+    "dimension_order": [
+      "Shooter",
+      "FPS",
+      "Platformer",
+      "Puzzle",
+      "Exploration",
+      "Open World",
+      "Survival",
+      "Horror",
+      "Stealth",
+      "Fighting",
+      "Roguelike",
+      "Roguelite",
+      "Metroidvania",
+      "Souls-like",
+      "Turn-Based Combat",
+      "Turn-Based Strategy",
+      "RTS",
+      "Tower Defense",
+      "Card Game",
+      "Management",
+      "Building",
+      "Crafting",
+      "Sandbox",
+      "Visual Novel",
+      "Point & Click",
+      "Walking Simulator",
+      "Immersive Sim",
+      "Hack and Slash",
+      "Bullet Hell",
+      "Rhythm",
+      "Clicker",
+      "Auto Battler",
+      "MOBA",
+      "Battle Royale",
+      "Dungeon Crawler",
+      "Farming Sim",
+      "Life Sim",
+      "Grand Strategy",
+      "Parkour",
+      "Vehicle Combat",
+      "Flight",
+      "Board Game",
+      "Party Game",
+      "Investigation",
+      "Choices Matter",
+      "Character Customization",
+      "Procedural Generation",
+      "Physics",
+      "Score Attack",
+      "First-Person",
+      "Third-Person",
+      "Top-Down",
+      "Side Scroller",
+      "2D",
+      "3D",
+      "Text-Based",
+      "VR",
+      "Fantasy",
+      "Sci-fi",
+      "Horror Theme",
+      "Historical",
+      "Post-apocalyptic",
+      "War",
+      "Crime",
+      "Nature",
+      "Anime",
+      "Romance",
+      "Atmospheric",
+      "Story Rich",
+      "Comedy",
+      "Dark",
+      "Cute",
+      "Relaxing",
+      "Difficult",
+      "Emotional",
+      "Retro",
+      "Colorful",
+      "Realistic",
+      "Singleplayer",
+      "Multiplayer",
+      "Co-op",
+      "PvP",
+      "Local Multiplayer",
+      "PvE"
+    ],
+    "count": 84,
+    "groups": {
+      "gameplay": [
+        "Shooter",
+        "FPS",
+        "Platformer",
+        "Puzzle",
+        "Exploration",
+        "Open World",
+        "Survival",
+        "Horror",
+        "Stealth",
+        "Fighting",
+        "Roguelike",
+        "Roguelite",
+        "Metroidvania",
+        "Souls-like",
+        "Turn-Based Combat",
+        "Turn-Based Strategy",
+        "RTS",
+        "Tower Defense",
+        "Card Game",
+        "Management",
+        "Building",
+        "Crafting",
+        "Sandbox",
+        "Visual Novel",
+        "Point & Click",
+        "Walking Simulator",
+        "Immersive Sim",
+        "Hack and Slash",
+        "Bullet Hell",
+        "Rhythm",
+        "Clicker",
+        "Auto Battler",
+        "MOBA",
+        "Battle Royale",
+        "Dungeon Crawler",
+        "Farming Sim",
+        "Life Sim",
+        "Grand Strategy",
+        "Parkour",
+        "Vehicle Combat",
+        "Flight",
+        "Board Game",
+        "Party Game",
+        "Investigation",
+        "Choices Matter",
+        "Character Customization",
+        "Procedural Generation",
+        "Physics",
+        "Score Attack"
+      ],
+      "perspective": [
+        "First-Person",
+        "Third-Person",
+        "Top-Down",
+        "Side Scroller",
+        "2D",
+        "3D",
+        "Text-Based",
+        "VR"
+      ],
+      "themes": [
+        "Fantasy",
+        "Sci-fi",
+        "Horror Theme",
+        "Historical",
+        "Post-apocalyptic",
+        "War",
+        "Crime",
+        "Nature",
+        "Anime",
+        "Romance"
+      ],
+      "mood": [
+        "Atmospheric",
+        "Story Rich",
+        "Comedy",
+        "Dark",
+        "Cute",
+        "Relaxing",
+        "Difficult",
+        "Emotional",
+        "Retro",
+        "Colorful",
+        "Realistic"
+      ],
+      "modes": [
+        "Singleplayer",
+        "Multiplayer",
+        "Co-op",
+        "PvP",
+        "Local Multiplayer",
+        "PvE"
+      ]
+    },
+    "labels": [
+      {
+        "id": "Shooter",
+        "definition": "Gunplay or projectile shooting combat as a core mechanic.",
+        "aliases": [
+          "Shooter",
+          "FPS",
+          "Third-Person Shooter",
+          "Top-Down Shooter",
+          "Arena Shooter",
+          "Boomer Shooter",
+          "Hero Shooter",
+          "Looter Shooter"
+        ],
+        "keywords": [
+          "\\bshooter\\b",
+          "\\bgun(?:play|fight)\\b",
+          "\\bfirearms?\\b",
+          "\\bfirst[- ]person\\s+shooter\\b",
+          "\\bthird[- ]person\\s+shooter\\b",
+          "\\btactical\\s+shooter\\b",
+          "\\baim(?:ing|ed)?\\b.{0,40}\\bshoot"
+        ],
+        "negations": [
+          "\\bno\\s+shooting\\b",
+          "\\bnot\\s+(?:a\\s+)?shooter\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "FPS",
+        "definition": "First-person shooter gameplay.",
+        "aliases": [
+          "FPS"
+        ],
+        "keywords": [
+          "\\bFPS\\b",
+          "\\bfirst[- ]person\\s+shooter\\b",
+          "\\bfirst[- ]person\\s+(?:combat|gunplay)\\b",
+          "\\bcompetitive\\s+FPS\\b",
+          "\\bcounter[- ]strike\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:an?\\s+)?FPS\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Platformer",
+        "definition": "Jumping and platforming traversal challenges.",
+        "aliases": [
+          "Platformer",
+          "2D Platformer",
+          "3D Platformer",
+          "Precision Platformer",
+          "Puzzle-Platformer"
+        ],
+        "keywords": [
+          "\\bplatformer\\b",
+          "\\bplatforming\\b",
+          "\\bprecision\\s+platform",
+          "\\bjump[- ]and[- ]run\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?platform"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Puzzle",
+        "definition": "Puzzle solving, logic challenges, or riddle-based progression.",
+        "aliases": [
+          "Puzzle",
+          "Logic",
+          "Hidden Object",
+          "Match 3",
+          "Sokoban",
+          "Escape Room"
+        ],
+        "keywords": [
+          "\\bpuzzle(?:s)?\\b",
+          "\\blogic\\s+puzzle",
+          "\\briddle(?:s)?\\b",
+          "\\bmatch[- ]?3\\b",
+          "\\bsolve\\s+(?:the\\s+)?puzzles?\\b"
+        ],
+        "negations": [
+          "\\bno\\s+puzzles?\\b",
+          "\\bnot\\s+(?:a\\s+)?puzzle\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Exploration",
+        "definition": "Exploring spaces, discovering locations, secrets, or open areas.",
+        "aliases": [
+          "Exploration"
+        ],
+        "keywords": [
+          "\\bexplor(?:e|ation|ing)\\s+(?:the\\s+)?(?:world|map|lands?|dungeon|island)",
+          "\\bopen[- ]world\\s+exploration\\b",
+          "\\bfree(?:ly)?\\s+(?:roam|explore)\\b",
+          "\\bexplor(?:e|ation|ing)\\b"
+        ],
+        "negations": [
+          "\\blinear\\s+only\\b",
+          "\\bno\\s+exploration\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Open World",
+        "definition": "Large contiguous open world to freely traverse.",
+        "aliases": [
+          "Open World",
+          "Open World Survival Craft"
+        ],
+        "keywords": [
+          "\\bopen[- ]world\\b",
+          "\\bvast\\s+world\\b",
+          "\\bfree(?:ly)?\\s+(?:roam|explore)\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+open[- ]world\\b",
+          "\\blinear\\s+campaign\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Survival",
+        "definition": "Survival systems such as hunger, crafting to stay alive, or harsh resource scarcity.",
+        "aliases": [
+          "Survival",
+          "Survival Horror",
+          "Open World Survival Craft"
+        ],
+        "keywords": [
+          "\\bsurviv(?:e|al)\\b",
+          "\\bhunger\\b",
+          "\\bthirst\\b",
+          "\\bcraft(?:ing)?\\s+to\\s+surviv"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?survival\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Horror",
+        "definition": "Horror atmosphere, fear, monsters, or scary survival tension.",
+        "aliases": [
+          "Horror",
+          "Psychological Horror",
+          "Survival Horror"
+        ],
+        "keywords": [
+          "\\bhorror\\b",
+          "\\bterrif",
+          "\\bfear\\b",
+          "\\bscary\\b",
+          "\\bnightmare\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?horror\\b",
+          "\\bno\\s+horror\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Stealth",
+        "definition": "Stealth, sneaking, avoidance, or undetected infiltration gameplay.",
+        "aliases": [
+          "Stealth"
+        ],
+        "keywords": [
+          "\\bstealth\\b",
+          "\\bsneak(?:ing)?\\b",
+          "\\bundetected\\b",
+          "\\binfiltrat"
+        ],
+        "negations": [
+          "\\bno\\s+stealth\\b",
+          "\\bnot\\s+stealth\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Fighting",
+        "definition": "Versus fighting game combat, martial arts duels, or arena fighters.",
+        "aliases": [
+          "Fighting",
+          "2D Fighter",
+          "3D Fighter",
+          "Beat 'em up",
+          "Martial Arts"
+        ],
+        "keywords": [
+          "\\bfighting\\s+game\\b",
+          "\\bversus\\s+(?:fighter|combat)\\b",
+          "\\bbeat\\s*'?\\s*em\\s*up\\b",
+          "\\bmartial\\s+arts\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?fighter\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Roguelike",
+        "definition": "Roguelike runs with procedural levels, permadeath, and run-based progression.",
+        "aliases": [
+          "Rogue-like",
+          "Traditional Roguelike",
+          "Roguelike"
+        ],
+        "keywords": [
+          "\\brogue[- ]?like\\b",
+          "\\bpermadeath\\b",
+          "\\bperma[- ]death\\b",
+          "\\bprocedurally\\s+generated\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?rogue"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Roguelite",
+        "definition": "Roguelite with run-based structure plus lasting meta-progression between runs.",
+        "aliases": [
+          "Rogue-lite",
+          "Action Roguelike",
+          "Roguelite"
+        ],
+        "keywords": [
+          "\\brogue[- ]?lite\\b",
+          "\\baction\\s+roguelike\\b",
+          "\\bmeta[- ]progression\\b",
+          "\\bbetween\\s+runs\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?rogue"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Metroidvania",
+        "definition": "Interconnected map with ability-gated backtracking exploration.",
+        "aliases": [
+          "Metroidvania"
+        ],
+        "keywords": [
+          "\\bmetroidvania\\b",
+          "\\bability[- ]gated\\b",
+          "\\bbacktrack"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?metroidvania\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Souls-like",
+        "definition": "Demanding stamina-based combat, sparse checkpoints, and souls-like difficulty design.",
+        "aliases": [
+          "Souls-like"
+        ],
+        "keywords": [
+          "\\bsouls[- ]?like\\b",
+          "\\bstamina[- ]based\\b",
+          "\\bchallenging\\s+boss(?:es)?\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+souls"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Turn-Based Combat",
+        "definition": "Turn-based battles where players and enemies act in turns.",
+        "aliases": [
+          "Turn-Based Combat",
+          "Turn-Based"
+        ],
+        "keywords": [
+          "\\bturn[- ]based\\s+combat\\b",
+          "\\bturn[- ]based\\s+battle",
+          "\\btake\\s+turns\\b"
+        ],
+        "negations": [
+          "\\breal[- ]time\\s+combat\\b",
+          "\\bnot\\s+turn[- ]based\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Turn-Based Strategy",
+        "definition": "Turn-based strategic or tactical map play.",
+        "aliases": [
+          "Turn-Based Strategy",
+          "Turn-Based Tactics"
+        ],
+        "keywords": [
+          "\\bturn[- ]based\\s+strateg",
+          "\\bturn[- ]based\\s+tactic",
+          "\\bTBS\\b"
+        ],
+        "negations": [
+          "\\breal[- ]time\\s+strateg"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "RTS",
+        "definition": "Real-time strategy with base building, armies, or simultaneous command.",
+        "aliases": [
+          "RTS",
+          "Action RTS",
+          "Real Time Tactics"
+        ],
+        "keywords": [
+          "\\bRTS\\b",
+          "\\breal[- ]time\\s+strateg",
+          "\\bbuild\\s+(?:your\\s+)?base\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:an?\\s+)?RTS\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Tower Defense",
+        "definition": "Tower defense: place defenses to stop waves of enemies.",
+        "aliases": [
+          "Tower Defense"
+        ],
+        "keywords": [
+          "\\btower\\s+defen[cs]e\\b",
+          "\\bplace\\s+(?:towers|turrets)\\b",
+          "\\bwaves?\\s+of\\s+enem"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?tower\\s+defen"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Card Game",
+        "definition": "Card game, deckbuilding, or card battler mechanics.",
+        "aliases": [
+          "Card Game",
+          "Deckbuilding",
+          "Card Battler",
+          "Trading Card Game",
+          "Roguelike Deckbuilder"
+        ],
+        "keywords": [
+          "\\bdeck[- ]?build",
+          "\\bcard(?:s)?\\s+game\\b",
+          "\\bcollectible\\s+card\\b",
+          "\\bTCG\\b"
+        ],
+        "negations": [
+          "\\bno\\s+cards?\\b",
+          "\\bnot\\s+(?:a\\s+)?card\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Management",
+        "definition": "Management of resources, businesses, colonies, or complex systems.",
+        "aliases": [
+          "Management",
+          "Resource Management",
+          "Time Management",
+          "Economy"
+        ],
+        "keywords": [
+          "\\bmanage(?:ment|r)?\\b",
+          "\\bresource(?:s)?\\b",
+          "\\beconomy\\b",
+          "\\bbudget\\b"
+        ],
+        "negations": [
+          "\\bno\\s+management\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Building",
+        "definition": "Building, construction, base-building, or creative construction.",
+        "aliases": [
+          "Building",
+          "Base-Building",
+          "City Builder",
+          "Colony Sim"
+        ],
+        "keywords": [
+          "\\bbase[- ]build",
+          "\\bcity\\s+build",
+          "\\bbuild(?:ing)?\\s+(?:your|a)\\s+(?:base|city|colony|farm|empire|house)",
+          "\\bconstruction\\s+(?:system|mechanics|management)\\b",
+          "\\bbuild(?:ing)?\\s+and\\s+(?:craft|survive|explore)"
+        ],
+        "negations": [
+          "\\bno\\s+building\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Crafting",
+        "definition": "Crafting items from materials and recipes.",
+        "aliases": [
+          "Crafting"
+        ],
+        "keywords": [
+          "\\bcraft(?:ing)?\\b",
+          "\\bcrafting\\s+system\\b",
+          "\\bcraft\\s+(?:weapons|tools|items|gear)\\b"
+        ],
+        "negations": [
+          "\\bno\\s+crafting\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Sandbox",
+        "definition": "Sandbox freedom with player-driven goals and open-ended tools.",
+        "aliases": [
+          "Sandbox"
+        ],
+        "keywords": [
+          "\\bsandbox\\b",
+          "\\bplayer[- ]driven\\b",
+          "\\bopen[- ]ended\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?sandbox\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Visual Novel",
+        "definition": "Visual novel or heavily narrative choice-driven story presentation.",
+        "aliases": [
+          "Visual Novel",
+          "Interactive Fiction",
+          "Choose Your Own Adventure",
+          "Dating Sim",
+          "Otome"
+        ],
+        "keywords": [
+          "\\bvisual\\s+novel\\b",
+          "\\bVN\\b",
+          "\\bdating\\s+sim\\b",
+          "\\bchoose\\s+your\\s+own\\b",
+          "\\binteractive\\s+fiction\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?visual\\s+novel\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Point & Click",
+        "definition": "Point-and-click adventure interaction style.",
+        "aliases": [
+          "Point & Click"
+        ],
+        "keywords": [
+          "\\bpoint\\s*(?:&|and)\\s*click\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+point\\s*(?:&|and)\\s*click\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Walking Simulator",
+        "definition": "Narrative walking simulator focused on atmosphere and exploration over combat.",
+        "aliases": [
+          "Walking Simulator"
+        ],
+        "keywords": [
+          "\\bwalking\\s+sim(?:ulator)?\\b",
+          "\\bnarrative\\s+exploration\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?walking\\s+sim"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Immersive Sim",
+        "definition": "Immersive sim with systemic tools, stealth/combat choices, and emergent solutions.",
+        "aliases": [
+          "Immersive Sim"
+        ],
+        "keywords": [
+          "\\bimmersive\\s+sim\\b",
+          "\\bemergent\\s+gameplay\\b",
+          "\\bmultiple\\s+(?:approaches|solutions)\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Hack and Slash",
+        "definition": "Hack-and-slash combat cutting through groups of enemies.",
+        "aliases": [
+          "Hack and Slash"
+        ],
+        "keywords": [
+          "\\bhack\\s*(?:and|&)\\s*slash\\b",
+          "\\bslash\\s+through\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Bullet Hell",
+        "definition": "Dense projectile patterns and bullet-hell shmup challenge.",
+        "aliases": [
+          "Bullet Hell",
+          "Shoot 'Em Up"
+        ],
+        "keywords": [
+          "\\bbullet\\s*hell\\b",
+          "\\bshmup\\b",
+          "\\bshoot\\s*'?\\s*em\\s*up\\b",
+          "\\bdanmaku\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Rhythm",
+        "definition": "Rhythm or music-timed gameplay.",
+        "aliases": [
+          "Rhythm",
+          "Music"
+        ],
+        "keywords": [
+          "\\brhythm\\b",
+          "\\bbeat[- ]matched\\b",
+          "\\bmusic\\s+game\\b"
+        ],
+        "negations": [
+          "\\bnot\\s+(?:a\\s+)?rhythm\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Clicker",
+        "definition": "Idle, incremental, or clicker progression gameplay.",
+        "aliases": [
+          "Clicker",
+          "Idler"
+        ],
+        "keywords": [
+          "\\bclicker\\b",
+          "\\bidle\\s+game\\b",
+          "\\bincremental\\s+game\\b",
+          "\\bidle\\s+(?:clicker|progression)\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Auto Battler",
+        "definition": "Auto-battler or autobattler team positioning with automatic combat.",
+        "aliases": [
+          "Auto Battler"
+        ],
+        "keywords": [
+          "\\bauto[- ]?battler\\b",
+          "\\bautochess\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "MOBA",
+        "definition": "MOBA lane-based team combat with heroes.",
+        "aliases": [
+          "MOBA"
+        ],
+        "keywords": [
+          "\\bMOBA\\b",
+          "\\bmultiplayer\\s+online\\s+battle\\s+arena\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Battle Royale",
+        "definition": "Battle royale last-player-standing shrinking arena gameplay.",
+        "aliases": [
+          "Battle Royale"
+        ],
+        "keywords": [
+          "\\bbattle\\s+royale\\b",
+          "\\blast\\s+(?:one|player|team)\\s+standing\\b",
+          "\\bshrinking\\s+(?:zone|circle)\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Dungeon Crawler",
+        "definition": "Dungeon crawling through labyrinths, loot, and encounters.",
+        "aliases": [
+          "Dungeon Crawler",
+          "Mystery Dungeon"
+        ],
+        "keywords": [
+          "\\bdungeon\\s*crawl",
+          "\\bdungeons?\\b",
+          "\\blabyrinth\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Farming Sim",
+        "definition": "Farming simulation growing crops and tending a farm.",
+        "aliases": [
+          "Farming Sim",
+          "Agriculture"
+        ],
+        "keywords": [
+          "\\bfarming\\s+sim\\b",
+          "\\bfarm\\s+(?:life|simulator|management)\\b",
+          "\\bgrow(?:ing)?\\s+crops\\b",
+          "\\btend(?:ing)?\\s+(?:your\\s+)?(?:farm|crops|fields)\\b",
+          "\\bagricultur"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Life Sim",
+        "definition": "Life simulation of daily living, relationships, or lifestyle routines.",
+        "aliases": [
+          "Life Sim"
+        ],
+        "keywords": [
+          "\\blife\\s+sim\\b",
+          "\\bdaily\\s+life\\b",
+          "\\bliving\\s+simulation\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Grand Strategy",
+        "definition": "Grand strategy across nations, empires, diplomacy, and long-term campaigns.",
+        "aliases": [
+          "Grand Strategy",
+          "4X",
+          "Wargame"
+        ],
+        "keywords": [
+          "\\bgrand\\s+strateg",
+          "\\b4X\\b",
+          "\\bempire[- ]build",
+          "\\bdiplomacy\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Parkour",
+        "definition": "Parkour or freerunning traversal movement.",
+        "aliases": [
+          "Parkour"
+        ],
+        "keywords": [
+          "\\bparkour\\b",
+          "\\bfree[- ]?run"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Vehicle Combat",
+        "definition": "Combat using vehicles, mechs, tanks, or ships.",
+        "aliases": [
+          "Vehicular Combat",
+          "Mechs",
+          "Tanks"
+        ],
+        "keywords": [
+          "\\bvehicular\\s+combat\\b",
+          "\\bmech(?:s|a)?\\b",
+          "\\btank\\s+combat\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Flight",
+        "definition": "Flight simulation or aerial combat/flying gameplay.",
+        "aliases": [
+          "Flight",
+          "Space Sim"
+        ],
+        "keywords": [
+          "\\bflight\\s+sim\\b",
+          "\\bfly(?:ing)?\\b",
+          "\\baircraft\\b",
+          "\\bspace\\s+sim\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Board Game",
+        "definition": "Digital board game or tabletop-style rules adaptation.",
+        "aliases": [
+          "Board Game",
+          "Tabletop"
+        ],
+        "keywords": [
+          "\\bboard\\s+game\\b",
+          "\\btabletop\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Party Game",
+        "definition": "Party game designed for group play and light multiplayer fun.",
+        "aliases": [
+          "Party Game",
+          "Party"
+        ],
+        "keywords": [
+          "\\bparty\\s+game\\b",
+          "\\bparty\\s+mode\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Investigation",
+        "definition": "Detective investigation, clues, and mystery solving.",
+        "aliases": [
+          "Investigation",
+          "Detective",
+          "Mystery"
+        ],
+        "keywords": [
+          "\\binvestigat(?:e|ion|ive)\\b",
+          "\\bdetective\\b",
+          "\\bcollect\\s+clues\\b",
+          "\\bsolve\\s+(?:the\\s+)?mystery\\b",
+          "\\bcrime\\s+scene\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Choices Matter",
+        "definition": "Branching narrative where player choices meaningfully change outcomes.",
+        "aliases": [
+          "Choices Matter",
+          "Multiple Endings"
+        ],
+        "keywords": [
+          "\\bchoices?\\s+matter\\b",
+          "\\bmultiple\\s+endings?\\b",
+          "\\bbranching\\s+(?:story|narrative)\\b",
+          "\\byour\\s+choices?\\b"
+        ],
+        "negations": [
+          "\\bsingle\\s+ending\\b"
+        ],
+        "group": "gameplay"
+      },
+      {
+        "id": "Character Customization",
+        "definition": "Deep character creation or appearance/loadout customization.",
+        "aliases": [
+          "Character Customization"
+        ],
+        "keywords": [
+          "\\bcharacter\\s+custom",
+          "\\bcreate\\s+your\\s+(?:own\\s+)?character\\b",
+          "\\bcustomize\\s+your\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Procedural Generation",
+        "definition": "Procedurally generated levels, worlds, or content.",
+        "aliases": [
+          "Procedural Generation"
+        ],
+        "keywords": [
+          "\\bprocedurally\\s+generated\\b",
+          "\\bprocedural\\s+generation\\b",
+          "\\brandomly\\s+generated\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Physics",
+        "definition": "Physics-driven puzzles, interactions, or simulation.",
+        "aliases": [
+          "Physics"
+        ],
+        "keywords": [
+          "\\bphysics[- ]based\\b",
+          "\\bphysics\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "Score Attack",
+        "definition": "Score-chasing, time attack, or high-score arcade challenge.",
+        "aliases": [
+          "Score Attack",
+          "Time Attack",
+          "Arcade"
+        ],
+        "keywords": [
+          "\\bhigh\\s*score\\b",
+          "\\bscore\\s+attack\\b",
+          "\\btime\\s+attack\\b",
+          "\\barcade\\b"
+        ],
+        "negations": [],
+        "group": "gameplay"
+      },
+      {
+        "id": "First-Person",
+        "definition": "First-person camera perspective.",
+        "aliases": [
+          "First-Person"
+        ],
+        "keywords": [
+          "\\bfirst[- ]person\\b"
+        ],
+        "negations": [
+          "\\bthird[- ]person\\b"
+        ],
+        "group": "perspective"
+      },
+      {
+        "id": "Third-Person",
+        "definition": "Third-person camera perspective.",
+        "aliases": [
+          "Third Person",
+          "Third-Person"
+        ],
+        "keywords": [
+          "\\bthird[- ]person\\b"
+        ],
+        "negations": [
+          "\\bfirst[- ]person\\b"
+        ],
+        "group": "perspective"
+      },
+      {
+        "id": "Top-Down",
+        "definition": "Top-down or overhead camera view.",
+        "aliases": [
+          "Top-Down",
+          "Isometric"
+        ],
+        "keywords": [
+          "\\btop[- ]down\\b",
+          "\\boverhead\\b",
+          "\\bisometric\\b"
+        ],
+        "negations": [],
+        "group": "perspective"
+      },
+      {
+        "id": "Side Scroller",
+        "definition": "Side-scrolling 2D presentation.",
+        "aliases": [
+          "Side Scroller"
+        ],
+        "keywords": [
+          "\\bside[- ]scroll(?:er|ing)\\b",
+          "\\b2D\\s+side[- ]scroll"
+        ],
+        "negations": [],
+        "group": "perspective"
+      },
+      {
+        "id": "2D",
+        "definition": "Two-dimensional visuals or gameplay plane.",
+        "aliases": [
+          "2D",
+          "2.5D",
+          "Pixel Graphics"
+        ],
+        "keywords": [
+          "\\b2D\\s+(?:platformer|game|action|adventure|pixel)\\b",
+          "\\btwo[- ]dimensional\\b",
+          "\\bpixel\\s+art\\b",
+          "\\bsprite[- ]based\\b"
+        ],
+        "negations": [
+          "\\bfully\\s+3D\\b"
+        ],
+        "group": "perspective"
+      },
+      {
+        "id": "3D",
+        "definition": "Three-dimensional environments and visuals.",
+        "aliases": [
+          "3D"
+        ],
+        "keywords": [
+          "\\b3D\\b",
+          "\\bthree[- ]dimensional\\b"
+        ],
+        "negations": [
+          "\\bpure(?:ly)?\\s+2D\\b"
+        ],
+        "group": "perspective"
+      },
+      {
+        "id": "Text-Based",
+        "definition": "Text-based interface or prose-driven interaction.",
+        "aliases": [
+          "Text-Based"
+        ],
+        "keywords": [
+          "\\btext[- ]based\\b",
+          "\\bparser\\b",
+          "\\binteractive\\s+fiction\\b"
+        ],
+        "negations": [],
+        "group": "perspective"
+      },
+      {
+        "id": "VR",
+        "definition": "Virtual reality support or VR-native design.",
+        "aliases": [
+          "VR"
+        ],
+        "keywords": [
+          "\\bVR\\b",
+          "\\bvirtual\\s+reality\\b"
+        ],
+        "negations": [
+          "\\bno\\s+VR\\b"
+        ],
+        "group": "perspective"
+      },
+      {
+        "id": "Fantasy",
+        "definition": "Fantasy setting with magic, mythical creatures, or medieval fantasy worlds.",
+        "aliases": [
+          "Fantasy",
+          "Dark Fantasy",
+          "Magic",
+          "Dragons",
+          "Mythology"
+        ],
+        "keywords": [
+          "\\bfantasy\\s+world\\b",
+          "\\bhigh\\s+fantasy\\b",
+          "\\bdark\\s+fantasy\\b",
+          "\\bmagic(?:al)?\\s+(?:spells?|system|powers?)\\b",
+          "\\bdragons?\\b",
+          "\\bwizards?\\b",
+          "\\belves\\b"
+        ],
+        "negations": [
+          "\\bno\\s+fantasy\\b"
+        ],
+        "group": "themes"
+      },
+      {
+        "id": "Sci-fi",
+        "definition": "Science fiction, futuristic technology, space, or sci-fi worlds.",
+        "aliases": [
+          "Sci-fi",
+          "Futuristic",
+          "Space",
+          "Cyberpunk",
+          "Aliens",
+          "Robots"
+        ],
+        "keywords": [
+          "\\bsci[- ]?fi\\b",
+          "\\bscience\\s+fiction\\b",
+          "\\bfuturistic\\b",
+          "\\bcyberpunk\\b",
+          "\\bspace\\b",
+          "\\balien(?:s)?\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Horror Theme",
+        "definition": "Horror themes, cosmic dread, or terrifying subject matter.",
+        "aliases": [
+          "Lovecraftian",
+          "Supernatural",
+          "Demons",
+          "Zombies",
+          "Vampire"
+        ],
+        "keywords": [
+          "\\blovecraft",
+          "\\bzombie(?:s)?\\b",
+          "\\bvampire(?:s)?\\b",
+          "\\bdemon(?:s)?\\b",
+          "\\bsupernatural\\b",
+          "\\bcosmic\\s+horror\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Historical",
+        "definition": "Historical settings or real-world historical periods.",
+        "aliases": [
+          "Historical",
+          "World War II",
+          "Medieval",
+          "Cold War",
+          "Alternate History"
+        ],
+        "keywords": [
+          "\\bhistorical\\b",
+          "\\bworld\\s+war\\b",
+          "\\bmedieval\\b",
+          "\\bww2\\b",
+          "\\bvictorian\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Post-apocalyptic",
+        "definition": "Post-apocalyptic or end-of-world aftermath setting.",
+        "aliases": [
+          "Post-apocalyptic",
+          "Dystopian"
+        ],
+        "keywords": [
+          "\\bpost[- ]apocalyp",
+          "\\bdystopian\\b",
+          "\\bafter\\s+the\\s+(?:end|collapse|fall)\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "War",
+        "definition": "War, military conflict, or large-scale armed struggle.",
+        "aliases": [
+          "War",
+          "Military"
+        ],
+        "keywords": [
+          "\\bwar(?:fare)?\\b",
+          "\\bmilitary\\s+(?:conflict|tactics|strategy|ops)\\b",
+          "\\bbattlefield\\b",
+          "\\bworld\\s+war\\b",
+          "\\barmed\\s+(?:conflict|forces)\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Crime",
+        "definition": "Crime, heists, assassins, or underworld themes.",
+        "aliases": [
+          "Crime",
+          "Assassin",
+          "Noir"
+        ],
+        "keywords": [
+          "\\bcrime\\b",
+          "\\bheist\\b",
+          "\\bassassin",
+          "\\bmafia\\b",
+          "\\bnoir\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Nature",
+        "definition": "Nature, wilderness, animals, or outdoor environmental focus.",
+        "aliases": [
+          "Nature",
+          "Cats",
+          "Dog",
+          "Fishing",
+          "Hunting"
+        ],
+        "keywords": [
+          "\\bnature\\b",
+          "\\bwilderness\\b",
+          "\\bforest\\b",
+          "\\banimal(?:s)?\\b",
+          "\\bfishing\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Anime",
+        "definition": "Anime-inspired art, style, or Japanese animation aesthetics.",
+        "aliases": [
+          "Anime"
+        ],
+        "keywords": [
+          "\\banime\\b",
+          "\\bmanga\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Romance",
+        "definition": "Romance relationships as a major theme.",
+        "aliases": [
+          "Romance"
+        ],
+        "keywords": [
+          "\\bromance\\b",
+          "\\bromantic\\b",
+          "\\bfall\\s+in\\s+love\\b"
+        ],
+        "negations": [],
+        "group": "themes"
+      },
+      {
+        "id": "Atmospheric",
+        "definition": "Strong atmosphere, mood, and immersive ambience.",
+        "aliases": [
+          "Atmospheric",
+          "Immersive"
+        ],
+        "keywords": [
+          "\\batmospheric\\b",
+          "\\bambience\\b",
+          "\\bimmersive\\b",
+          "\\bmood(?:y)?\\b"
+        ],
+        "negations": [],
+        "group": "mood"
+      },
+      {
+        "id": "Story Rich",
+        "definition": "Story-rich narrative focus with characters and plot emphasis.",
+        "aliases": [
+          "Story Rich",
+          "Narrative",
+          "Drama",
+          "Lore-Rich",
+          "Cinematic"
+        ],
+        "keywords": [
+          "\\bstory[- ]rich\\b",
+          "\\bnarrative\\b",
+          "\\bstory[- ]driven\\b",
+          "\\bcinematic\\b",
+          "\\blore\\b"
+        ],
+        "negations": [
+          "\\bno\\s+story\\b",
+          "\\bstoryless\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Comedy",
+        "definition": "Comedy, humor, satire, or intentionally funny tone.",
+        "aliases": [
+          "Comedy",
+          "Funny",
+          "Dark Humor",
+          "Satire",
+          "Parody"
+        ],
+        "keywords": [
+          "\\bcomed(?:y|ic)\\b",
+          "\\bhumou?r(?:ous)?\\b",
+          "\\bfunny\\b",
+          "\\bsatire\\b",
+          "\\bparody\\b"
+        ],
+        "negations": [
+          "\\bserious\\s+tone\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Dark",
+        "definition": "Dark, bleak, grim, or mature sombre tone.",
+        "aliases": [
+          "Dark",
+          "Mature"
+        ],
+        "keywords": [
+          "\\bdark\\b",
+          "\\bbleak\\b",
+          "\\bgrim\\b",
+          "\\bsombre\\b",
+          "\\bmature\\s+themes?\\b"
+        ],
+        "negations": [
+          "\\blight[- ]hearted\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Cute",
+        "definition": "Cute, wholesome, cozy, or adorable presentation.",
+        "aliases": [
+          "Cute",
+          "Wholesome",
+          "Cozy",
+          "Family Friendly"
+        ],
+        "keywords": [
+          "\\bcute\\b",
+          "\\badorable\\b",
+          "\\bwholesome\\b",
+          "\\bcozy\\b",
+          "\\bfamily[- ]friendly\\b"
+        ],
+        "negations": [
+          "\\bgory\\b",
+          "\\bviolent\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Relaxing",
+        "definition": "Relaxing, calm, low-stress play experience.",
+        "aliases": [
+          "Relaxing"
+        ],
+        "keywords": [
+          "\\brelax(?:ing|ed)\\b",
+          "\\bcalm\\b",
+          "\\bchill\\b",
+          "\\blow[- ]stress\\b"
+        ],
+        "negations": [
+          "\\bstressful\\b",
+          "\\bintense\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Difficult",
+        "definition": "High difficulty, punishing challenge, or hardcore demand.",
+        "aliases": [
+          "Difficult"
+        ],
+        "keywords": [
+          "\\bdifficult\\b",
+          "\\bchallenging\\b",
+          "\\bpunishing\\b",
+          "\\bhardcore\\b",
+          "\\bbrutal(?:ly)?\\s+hard\\b"
+        ],
+        "negations": [
+          "\\beasy\\s+difficulty\\b",
+          "\\bfor\\s+everyone\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Emotional",
+        "definition": "Emotional storytelling intended to move the player.",
+        "aliases": [
+          "Emotional",
+          "Philosophical"
+        ],
+        "keywords": [
+          "\\bemotional\\b",
+          "\\bheartfelt\\b",
+          "\\btear[- ]jerk",
+          "\\bphilosophical\\b"
+        ],
+        "negations": [],
+        "group": "mood"
+      },
+      {
+        "id": "Retro",
+        "definition": "Retro or old-school stylistic homage.",
+        "aliases": [
+          "Retro",
+          "Old School",
+          "Classic",
+          "1990's",
+          "1980s"
+        ],
+        "keywords": [
+          "\\bretro\\b",
+          "\\bold[- ]school\\b",
+          "\\bclassic\\s+(?:arcade|style)\\b",
+          "\\b8[- ]?bit\\b",
+          "\\b16[- ]?bit\\b"
+        ],
+        "negations": [],
+        "group": "mood"
+      },
+      {
+        "id": "Colorful",
+        "definition": "Colorful, vibrant, stylized visual presentation.",
+        "aliases": [
+          "Colorful",
+          "Stylized",
+          "Cartoony",
+          "Cartoon",
+          "Hand-drawn",
+          "Minimalist",
+          "Abstract"
+        ],
+        "keywords": [
+          "\\bcolorful\\b",
+          "\\bvibrant\\b",
+          "\\bstylized\\b",
+          "\\bcartoon(?:y|ish)?\\b",
+          "\\bhand[- ]drawn\\b"
+        ],
+        "negations": [],
+        "group": "mood"
+      },
+      {
+        "id": "Realistic",
+        "definition": "Realistic visuals or simulation of real-world detail.",
+        "aliases": [
+          "Realistic"
+        ],
+        "keywords": [
+          "\\brealistic\\b",
+          "\\brealism\\b",
+          "\\bphotoreal"
+        ],
+        "negations": [
+          "\\bstylized\\b"
+        ],
+        "group": "mood"
+      },
+      {
+        "id": "Singleplayer",
+        "definition": "Single-player campaign or solo play focus.",
+        "aliases": [
+          "Singleplayer",
+          "Single-player"
+        ],
+        "keywords": [
+          "\\bsingle[- ]player\\b",
+          "\\bsolo\\s+(?:campaign|adventure|play)\\b",
+          "\\bsingleplayer\\b"
+        ],
+        "negations": [
+          "\\bmultiplayer[- ]only\\b",
+          "\\bonline\\s+only\\b"
+        ],
+        "group": "modes"
+      },
+      {
+        "id": "Multiplayer",
+        "definition": "Multiplayer play with other players.",
+        "aliases": [
+          "Multiplayer"
+        ],
+        "keywords": [
+          "\\bmultiplayer\\b",
+          "\\bmulti[- ]player\\b",
+          "\\bplay\\s+(?:with|against)\\s+(?:friends|others|players)\\b"
+        ],
+        "negations": [
+          "\\bsingle[- ]player\\s+only\\b",
+          "\\bno\\s+multiplayer\\b"
+        ],
+        "group": "modes"
+      },
+      {
+        "id": "Co-op",
+        "definition": "Cooperative multiplayer playing together toward shared goals.",
+        "aliases": [
+          "Co-op",
+          "Online Co-Op",
+          "Local Co-Op",
+          "Co-op Campaign"
+        ],
+        "keywords": [
+          "\\bco[- ]?op\\b",
+          "\\bcooperative\\b",
+          "\\bcampaign\\s+co[- ]?op\\b"
+        ],
+        "negations": [
+          "\\bno\\s+co[- ]?op\\b"
+        ],
+        "group": "modes"
+      },
+      {
+        "id": "PvP",
+        "definition": "Player-versus-player competitive conflict.",
+        "aliases": [
+          "PvP",
+          "Competitive",
+          "e-sports",
+          "Team-Based"
+        ],
+        "keywords": [
+          "\\bPvP\\b",
+          "\\bplayer[- ]versus[- ]player\\b",
+          "\\bcompetitive\\s+(?:multiplayer|matches?|play|experience)\\b",
+          "\\be[- ]?sports\\b",
+          "\\bversus\\s+(?:other\\s+)?players\\b"
+        ],
+        "negations": [
+          "\\bno\\s+PvP\\b",
+          "\\bPvE\\s+only\\b"
+        ],
+        "group": "modes"
+      },
+      {
+        "id": "Local Multiplayer",
+        "definition": "Local/split-screen/shared-screen multiplayer on one device.",
+        "aliases": [
+          "Local Multiplayer",
+          "Shared/Split Screen",
+          "4 Player Local",
+          "Split Screen"
+        ],
+        "keywords": [
+          "\\blocal\\s+multiplayer\\b",
+          "\\bsplit[- ]screen\\b",
+          "\\bshared[- ]screen\\b",
+          "\\bcouch\\s+co[- ]?op\\b"
+        ],
+        "negations": [
+          "\\bonline[- ]only\\b"
+        ],
+        "group": "modes"
+      },
+      {
+        "id": "PvE",
+        "definition": "Player-versus-environment cooperative or solo combat against AI.",
+        "aliases": [
+          "PvE"
+        ],
+        "keywords": [
+          "\\bPvE\\b",
+          "\\bplayer[- ]versus[- ]environment\\b"
+        ],
+        "negations": [],
+        "group": "modes"
+      }
+    ]
+  },
+  "synonym_policy": "Aliases list catalog spellings merged into each canonical id. Near-duplicates with distinct gameplay meaning stay separate (e.g. Roguelike vs Roguelite, FPS vs Shooter)."
+}

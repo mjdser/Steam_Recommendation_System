@@ -1,0 +1,484 @@
+{
+  "taxonomy_version": "taxonomy_v2",
+  "score_range": [
+    0.0,
+    1.0
+  ],
+  "genres": {
+    "dimension_order": [
+      "Action",
+      "Adventure",
+      "Casual",
+      "Simulation",
+      "Strategy",
+      "RPG",
+      "Sports",
+      "Racing",
+      "Massively Multiplayer"
+    ],
+    "labels": [
+      {
+        "id": "Action",
+        "definition": "Fast-paced action gameplay with real-time combat, shooting, brawling, athletic challenge, or competitive shooters."
+      },
+      {
+        "id": "Adventure",
+        "definition": "Adventure gameplay focused on exploration, story journeys, investigation, or point-and-click adventure."
+      },
+      {
+        "id": "Casual",
+        "definition": "Casual, accessible, pick-up-and-play gameplay with light challenge or short sessions."
+      },
+      {
+        "id": "Simulation",
+        "definition": "Simulation of systems, vehicles, life, jobs, farming, cities, or realistic processes."
+      },
+      {
+        "id": "Strategy",
+        "definition": "Strategic planning, tactics, resource decisions, wargames, or turn-based/real-time strategy."
+      },
+      {
+        "id": "RPG",
+        "definition": "Role-playing with character progression, classes, quests, party building, or stats-driven builds."
+      },
+      {
+        "id": "Sports",
+        "definition": "Sports competition such as football, basketball, racing athletics, or sports management."
+      },
+      {
+        "id": "Racing",
+        "definition": "Racing or driving competition with vehicles on tracks, streets, or courses."
+      },
+      {
+        "id": "Massively Multiplayer",
+        "definition": "Massively multiplayer online worlds or persistent shared multiplayer communities."
+      }
+    ]
+  },
+  "tags": {
+    "dimension_order": [
+      "Shooter",
+      "FPS",
+      "Platformer",
+      "Puzzle",
+      "Exploration",
+      "Open World",
+      "Survival",
+      "Horror",
+      "Stealth",
+      "Fighting",
+      "Roguelike",
+      "Roguelite",
+      "Metroidvania",
+      "Souls-like",
+      "Turn-Based Combat",
+      "Turn-Based Strategy",
+      "RTS",
+      "Tower Defense",
+      "Card Game",
+      "Management",
+      "Building",
+      "Crafting",
+      "Sandbox",
+      "Visual Novel",
+      "Point & Click",
+      "Walking Simulator",
+      "Immersive Sim",
+      "Hack and Slash",
+      "Bullet Hell",
+      "Rhythm",
+      "Clicker",
+      "Auto Battler",
+      "MOBA",
+      "Battle Royale",
+      "Dungeon Crawler",
+      "Farming Sim",
+      "Life Sim",
+      "Grand Strategy",
+      "Parkour",
+      "Vehicle Combat",
+      "Flight",
+      "Board Game",
+      "Party Game",
+      "Investigation",
+      "Choices Matter",
+      "Character Customization",
+      "Procedural Generation",
+      "Physics",
+      "Score Attack",
+      "First-Person",
+      "Third-Person",
+      "Top-Down",
+      "Side Scroller",
+      "2D",
+      "3D",
+      "Text-Based",
+      "VR",
+      "Fantasy",
+      "Sci-fi",
+      "Horror Theme",
+      "Historical",
+      "Post-apocalyptic",
+      "War",
+      "Crime",
+      "Nature",
+      "Anime",
+      "Romance",
+      "Atmospheric",
+      "Story Rich",
+      "Comedy",
+      "Dark",
+      "Cute",
+      "Relaxing",
+      "Difficult",
+      "Emotional",
+      "Retro",
+      "Colorful",
+      "Realistic",
+      "Singleplayer",
+      "Multiplayer",
+      "Co-op",
+      "PvP",
+      "Local Multiplayer",
+      "PvE"
+    ],
+    "labels": [
+      {
+        "id": "Shooter",
+        "definition": "Gunplay or projectile shooting combat as a core mechanic."
+      },
+      {
+        "id": "FPS",
+        "definition": "First-person shooter gameplay."
+      },
+      {
+        "id": "Platformer",
+        "definition": "Jumping and platforming traversal challenges."
+      },
+      {
+        "id": "Puzzle",
+        "definition": "Puzzle solving, logic challenges, or riddle-based progression."
+      },
+      {
+        "id": "Exploration",
+        "definition": "Exploring spaces, discovering locations, secrets, or open areas."
+      },
+      {
+        "id": "Open World",
+        "definition": "Large contiguous open world to freely traverse."
+      },
+      {
+        "id": "Survival",
+        "definition": "Survival systems such as hunger, crafting to stay alive, or harsh resource scarcity."
+      },
+      {
+        "id": "Horror",
+        "definition": "Horror atmosphere, fear, monsters, or scary survival tension."
+      },
+      {
+        "id": "Stealth",
+        "definition": "Stealth, sneaking, avoidance, or undetected infiltration gameplay."
+      },
+      {
+        "id": "Fighting",
+        "definition": "Versus fighting game combat, martial arts duels, or arena fighters."
+      },
+      {
+        "id": "Roguelike",
+        "definition": "Roguelike runs with procedural levels, permadeath, and run-based progression."
+      },
+      {
+        "id": "Roguelite",
+        "definition": "Roguelite with run-based structure plus lasting meta-progression between runs."
+      },
+      {
+        "id": "Metroidvania",
+        "definition": "Interconnected map with ability-gated backtracking exploration."
+      },
+      {
+        "id": "Souls-like",
+        "definition": "Demanding stamina-based combat, sparse checkpoints, and souls-like difficulty design."
+      },
+      {
+        "id": "Turn-Based Combat",
+        "definition": "Turn-based battles where players and enemies act in turns."
+      },
+      {
+        "id": "Turn-Based Strategy",
+        "definition": "Turn-based strategic or tactical map play."
+      },
+      {
+        "id": "RTS",
+        "definition": "Real-time strategy with base building, armies, or simultaneous command."
+      },
+      {
+        "id": "Tower Defense",
+        "definition": "Tower defense: place defenses to stop waves of enemies."
+      },
+      {
+        "id": "Card Game",
+        "definition": "Card game, deckbuilding, or card battler mechanics."
+      },
+      {
+        "id": "Management",
+        "definition": "Management of resources, businesses, colonies, or complex systems."
+      },
+      {
+        "id": "Building",
+        "definition": "Building, construction, base-building, or creative construction."
+      },
+      {
+        "id": "Crafting",
+        "definition": "Crafting items from materials and recipes."
+      },
+      {
+        "id": "Sandbox",
+        "definition": "Sandbox freedom with player-driven goals and open-ended tools."
+      },
+      {
+        "id": "Visual Novel",
+        "definition": "Visual novel or heavily narrative choice-driven story presentation."
+      },
+      {
+        "id": "Point & Click",
+        "definition": "Point-and-click adventure interaction style."
+      },
+      {
+        "id": "Walking Simulator",
+        "definition": "Narrative walking simulator focused on atmosphere and exploration over combat."
+      },
+      {
+        "id": "Immersive Sim",
+        "definition": "Immersive sim with systemic tools, stealth/combat choices, and emergent solutions."
+      },
+      {
+        "id": "Hack and Slash",
+        "definition": "Hack-and-slash combat cutting through groups of enemies."
+      },
+      {
+        "id": "Bullet Hell",
+        "definition": "Dense projectile patterns and bullet-hell shmup challenge."
+      },
+      {
+        "id": "Rhythm",
+        "definition": "Rhythm or music-timed gameplay."
+      },
+      {
+        "id": "Clicker",
+        "definition": "Idle, incremental, or clicker progression gameplay."
+      },
+      {
+        "id": "Auto Battler",
+        "definition": "Auto-battler or autobattler team positioning with automatic combat."
+      },
+      {
+        "id": "MOBA",
+        "definition": "MOBA lane-based team combat with heroes."
+      },
+      {
+        "id": "Battle Royale",
+        "definition": "Battle royale last-player-standing shrinking arena gameplay."
+      },
+      {
+        "id": "Dungeon Crawler",
+        "definition": "Dungeon crawling through labyrinths, loot, and encounters."
+      },
+      {
+        "id": "Farming Sim",
+        "definition": "Farming simulation growing crops and tending a farm."
+      },
+      {
+        "id": "Life Sim",
+        "definition": "Life simulation of daily living, relationships, or lifestyle routines."
+      },
+      {
+        "id": "Grand Strategy",
+        "definition": "Grand strategy across nations, empires, diplomacy, and long-term campaigns."
+      },
+      {
+        "id": "Parkour",
+        "definition": "Parkour or freerunning traversal movement."
+      },
+      {
+        "id": "Vehicle Combat",
+        "definition": "Combat using vehicles, mechs, tanks, or ships."
+      },
+      {
+        "id": "Flight",
+        "definition": "Flight simulation or aerial combat/flying gameplay."
+      },
+      {
+        "id": "Board Game",
+        "definition": "Digital board game or tabletop-style rules adaptation."
+      },
+      {
+        "id": "Party Game",
+        "definition": "Party game designed for group play and light multiplayer fun."
+      },
+      {
+        "id": "Investigation",
+        "definition": "Detective investigation, clues, and mystery solving."
+      },
+      {
+        "id": "Choices Matter",
+        "definition": "Branching narrative where player choices meaningfully change outcomes."
+      },
+      {
+        "id": "Character Customization",
+        "definition": "Deep character creation or appearance/loadout customization."
+      },
+      {
+        "id": "Procedural Generation",
+        "definition": "Procedurally generated levels, worlds, or content."
+      },
+      {
+        "id": "Physics",
+        "definition": "Physics-driven puzzles, interactions, or simulation."
+      },
+      {
+        "id": "Score Attack",
+        "definition": "Score-chasing, time attack, or high-score arcade challenge."
+      },
+      {
+        "id": "First-Person",
+        "definition": "First-person camera perspective."
+      },
+      {
+        "id": "Third-Person",
+        "definition": "Third-person camera perspective."
+      },
+      {
+        "id": "Top-Down",
+        "definition": "Top-down or overhead camera view."
+      },
+      {
+        "id": "Side Scroller",
+        "definition": "Side-scrolling 2D presentation."
+      },
+      {
+        "id": "2D",
+        "definition": "Two-dimensional visuals or gameplay plane."
+      },
+      {
+        "id": "3D",
+        "definition": "Three-dimensional environments and visuals."
+      },
+      {
+        "id": "Text-Based",
+        "definition": "Text-based interface or prose-driven interaction."
+      },
+      {
+        "id": "VR",
+        "definition": "Virtual reality support or VR-native design."
+      },
+      {
+        "id": "Fantasy",
+        "definition": "Fantasy setting with magic, mythical creatures, or medieval fantasy worlds."
+      },
+      {
+        "id": "Sci-fi",
+        "definition": "Science fiction, futuristic technology, space, or sci-fi worlds."
+      },
+      {
+        "id": "Horror Theme",
+        "definition": "Horror themes, cosmic dread, or terrifying subject matter."
+      },
+      {
+        "id": "Historical",
+        "definition": "Historical settings or real-world historical periods."
+      },
+      {
+        "id": "Post-apocalyptic",
+        "definition": "Post-apocalyptic or end-of-world aftermath setting."
+      },
+      {
+        "id": "War",
+        "definition": "War, military conflict, or large-scale armed struggle."
+      },
+      {
+        "id": "Crime",
+        "definition": "Crime, heists, assassins, or underworld themes."
+      },
+      {
+        "id": "Nature",
+        "definition": "Nature, wilderness, animals, or outdoor environmental focus."
+      },
+      {
+        "id": "Anime",
+        "definition": "Anime-inspired art, style, or Japanese animation aesthetics."
+      },
+      {
+        "id": "Romance",
+        "definition": "Romance relationships as a major theme."
+      },
+      {
+        "id": "Atmospheric",
+        "definition": "Strong atmosphere, mood, and immersive ambience."
+      },
+      {
+        "id": "Story Rich",
+        "definition": "Story-rich narrative focus with characters and plot emphasis."
+      },
+      {
+        "id": "Comedy",
+        "definition": "Comedy, humor, satire, or intentionally funny tone."
+      },
+      {
+        "id": "Dark",
+        "definition": "Dark, bleak, grim, or mature sombre tone."
+      },
+      {
+        "id": "Cute",
+        "definition": "Cute, wholesome, cozy, or adorable presentation."
+      },
+      {
+        "id": "Relaxing",
+        "definition": "Relaxing, calm, low-stress play experience."
+      },
+      {
+        "id": "Difficult",
+        "definition": "High difficulty, punishing challenge, or hardcore demand."
+      },
+      {
+        "id": "Emotional",
+        "definition": "Emotional storytelling intended to move the player."
+      },
+      {
+        "id": "Retro",
+        "definition": "Retro or old-school stylistic homage."
+      },
+      {
+        "id": "Colorful",
+        "definition": "Colorful, vibrant, stylized visual presentation."
+      },
+      {
+        "id": "Realistic",
+        "definition": "Realistic visuals or simulation of real-world detail."
+      },
+      {
+        "id": "Singleplayer",
+        "definition": "Single-player campaign or solo play focus."
+      },
+      {
+        "id": "Multiplayer",
+        "definition": "Multiplayer play with other players."
+      },
+      {
+        "id": "Co-op",
+        "definition": "Cooperative multiplayer playing together toward shared goals."
+      },
+      {
+        "id": "PvP",
+        "definition": "Player-versus-player competitive conflict."
+      },
+      {
+        "id": "Local Multiplayer",
+        "definition": "Local/split-screen/shared-screen multiplayer on one device."
+      },
+      {
+        "id": "PvE",
+        "definition": "Player-versus-environment cooperative or solo combat against AI."
+      }
+    ]
+  }
+}

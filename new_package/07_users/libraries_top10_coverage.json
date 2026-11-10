@@ -1,0 +1,44 @@
+{
+  "h_cap_hours": 200.0,
+  "weights": {
+    "s_recent": 0.4,
+    "s_play": 0.35,
+    "s_momentum": 0.15,
+    "s_invest": 0.1
+  },
+  "equation": "0.40*s_recent + 0.35*s_play + 0.15*s_momentum + 0.10*s_invest; hours throughout; H_cap = 200",
+  "user_csv": "steam_user_api_data_26_9.csv",
+  "steam_csv": "steam_cleaned_2026.csv",
+  "user_files": "07_users/libraries_top10.csv",
+  "users": 22605,
+  "users_with_a_top10_game": 20064,
+  "top_rows": 197126,
+  "unique_user_top10_games": 6902,
+  "user_top10_games_in_steam_dataset": 5522,
+  "user_top10_games_missing_from_steam_dataset": 1380,
+  "steam_games_ranked": 112544,
+  "popularity": "peak_ccu*1000 + positive + recommendations + owner_midpoint/1000, non-games removed",
+  "top_2500": {
+    "steam_top_n": 2500,
+    "steam_top_count": 2500,
+    "appear_in_any_user_top10": 1972,
+    "appear_percent_of_steam_top": 78.88,
+    "user_top10_games_inside": 1972,
+    "user_top10_games_inside_percent": 28.57,
+    "force_add_in_steam_dataset": 3550,
+    "force_add_missing_from_steam_dataset": 1380,
+    "catalog_size_top_plus_force": 6050
+  },
+  "top_5000": {
+    "steam_top_n": 5000,
+    "steam_top_count": 5000,
+    "appear_in_any_user_top10": 3064,
+    "appear_percent_of_steam_top": 61.28,
+    "user_top10_games_inside": 3064,
+    "user_top10_games_inside_percent": 44.39,
+    "force_add_in_steam_dataset": 2458,
+    "force_add_missing_from_steam_dataset": 1380,
+    "catalog_size_top_plus_force": 7458
+  },
+  "bad_json": 0
+}
